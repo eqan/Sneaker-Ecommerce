@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-import GoBackBtn from '../components/GoBackBtn';
 import { CartContext } from '../utils/CartContext';
 
 export default function Cart() {

@@ -83,7 +83,7 @@ const displayToastError = (error) => {
                 <Paper elevation={10} style={paperStyle}>
                     <Grid align='center'>
                         <Avatar style={avatarStyle}><VpnKeyIcon/></Avatar>
-                        <h2>Sign In</h2>
+                        <h2>Sign Up</h2>
                     </Grid>
             <Box>
                 <TextField label="Name" name="name" type="text"
@@ -140,7 +140,7 @@ const displayToastError = (error) => {
                 {errors.confirmPassword && displayToastError(errors.confirmPassword)}
                 <br/>
                 <br/>
-            <Button  
+            <Button   style={{width: "150px", margin:'8px 0'}} 
             color="primary" variant="contained"
                 type="submit" disabled={isSubmitting}>
                 Submit

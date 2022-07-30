@@ -36,8 +36,12 @@ function Navbar({profileImage, setProfileData}) {
           <Link to='/profile' style={{textDecoration: "none", color: "black"}}><li>Profile</li></Link>
           <Link to='/about' style={{textDecoration: "none", color: "black"}}><li>About</li></Link>
           {
-            !profileImage ?
-            <Link to='/signup' style={{textDecoration: "none", color: "black"}}><li>SignUp</li></Link> : <li></li>
+            !profileImage['avatar'] ?
+              <div style={{display: "flex"}}>
+                <Link to='/signup' style={{textDecoration: "none", color: "black"}}><li>SignUp</li></Link>
+                <Link to='/login' style={{textDecoration: "none", color: "black"}}><li>Login</li></Link>
+              </div>
+             : <li></li>
           }
         </ul>
       </Box>
@@ -70,7 +74,7 @@ function Navbar({profileImage, setProfileData}) {
           </MenuItem>
         </Menu>
         {
-        profileImage ?
+        profileImage['avatar'] ?
         <img
           onClick={handleClick}
           src={profileImage['avatar']}
