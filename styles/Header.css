@@ -1,0 +1,53 @@
+nav {
+  top: 0;
+  display: flex;
+ /* justify-content: space-around; */
+  align-items: center;
+  position: sticky;
+  background-color: white;
+  z-index: 50;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  width: 100vw;
+  /* padding-left: 15rem; */
+}
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  list-style: none;
+  padding: 1rem;
+}
+.list li {
+  /* margin: 0.5rem; */
+  padding: 1rem;
+  padding-right: 5rem;
+}
+.logo {
+  display: flex;
+  align-items: flex-start;
+}
+.cart {
+  margin: 1rem;
+  display: flex;
+  margin-left: 2rem;
+}
+.left {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@font-face {
+  font-family: 'Logo';
+  src: local('Logo'), url(../fonts//PragmaticaExtendedBold.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PoppinsThin';
+  src: local('PoppinsThin'), url(../fonts/FontsFree-Net-Poppins-Thin.ttf) format('truetype');
+}
