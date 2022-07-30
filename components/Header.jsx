@@ -35,6 +35,10 @@ function Navbar({profileImage, setProfileData}) {
           <Link to='/Cart' style={{textDecoration: "none", color: "black"}}><li>Cart</li></Link>
           <Link to='/profile' style={{textDecoration: "none", color: "black"}}><li>Profile</li></Link>
           <Link to='/about' style={{textDecoration: "none", color: "black"}}><li>About</li></Link>
+          {
+            !profileImage ?
+            <Link to='/signup' style={{textDecoration: "none", color: "black"}}><li>SignUp</li></Link> : <li></li>
+          }
         </ul>
       </Box>
       <Box style={{display: "flex", justifyContent: "flex-end"}} className="avatar">
@@ -56,8 +60,9 @@ function Navbar({profileImage, setProfileData}) {
           </MenuItem>
           <MenuItem
             onClick={() => {
+              profileImage = false;
               localStorage.removeItem('access_token');
-              setProfileData({'avatar': null})
+              setProfileData({'avatar': null});
               navigate("/login");
             }}
           >

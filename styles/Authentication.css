@@ -1,0 +1,38 @@
+/* Split the screen in half */
+.split {
+    height: 100%;
+    width: 60%;
+    position: fixed;
+    z-index: 0;
+    top: 3rem;
+    overflow-x: hidden;
+    margin-top: 30px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: "100%";
+    margin-left: "40%";
+    height: "60%";
+    display: flex;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  img {
+  margin-top: 140px;
+  margin-left: 30px;
+  }

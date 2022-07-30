@@ -1,15 +1,19 @@
 import React from 'react'
+import { Box, Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Background from "../images/login.svg";
+import "../styles/Authentication.css"
 import validationSchema from '../utils/schema/loginValidationSchema';
 import { Formik, Form} from 'formik';
 import {ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {Box, Typography, Button, TextField} from "@material-ui/core"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
-
-export default function Login() {
-    let navigate = useNavigate();
+const Login=()=>{
+  let navigate = useNavigate();
+  const paperStyle={padding :20,height:'70vh',width:380, margin:"20px auto"}
+  const avatarStyle={backgroundColor:'#1bbd7e'}
     function authenticateUserNameAndPassword(values)
     {
       axios.post('https://fakse-store-api.herokuapp.com/api/v1/auth/login', {
@@ -35,9 +39,10 @@ export default function Login() {
         toastId: error
       });
   }
-  
-    return (
-      <>
+
+
+    return(
+       <>
        <Formik
           initialValues={{
               email: "",
@@ -54,18 +59,29 @@ export default function Login() {
          }}
        >
       {({ isSubmitting, errors, handleChange, handleBlur,values }) => (
-           <Form>
-              <Box>
-              <Typography variant="h2" my={4} fontSize="bold">
-                Login
-              </Typography>
+        <Form>
+        <div className="left">
+            <img src={Background} styles={{width: "100%", display: "flex", marginTop: "40px"}} alt="image"/>
+        </div>
+
+        <div className="split right">
+        <div className="centered">
+        <Grid>
+                <Paper elevation={10} style={paperStyle}>
+                    <Grid align='center'>
+                        <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+                        <h2>Sign In</h2>
+                    </Grid>
+                    <Box>
                   <TextField label="Email" name="email" type="email"
+                  style={{width: "150px"}}
                   onChange={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email} />
                   {errors.email && displayToastError(errors.email)}
                   <br/>
                   <TextField label="Password" name="password" type="password"
+                  style={{width: "150px"}}
                   onChange={handleChange('password')}
                   onBlur={handleBlur('password')}
                   value={values.password}
@@ -73,16 +89,22 @@ export default function Login() {
                   {errors.password && displayToastError(errors.password)}
                   <br/>
                   <br/>
-              <Button  
+              <Button  style={{width: "100px", margin:'8px 0'}} 
               color="primary" variant="contained"
                   type="submit" disabled={isSubmitting}>
                   Submit
+                  
               </Button>
-              <ToastContainer />
               </Box>
-           </Form>
-         )}
-       </Formik>
+                </Paper>
+            </Grid>
+        </div>
+        </div>
+              <ToastContainer />
+                  </Form>)}
+                </Formik>
       </>
-  )
+    )
 }
+
+export default Login

@@ -1,0 +1,11 @@
+*{
+    -ms-overflow-style: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+img {
+    width:50%;
+    height:50%;
+}

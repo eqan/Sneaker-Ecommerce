@@ -1,7 +1,11 @@
 import React from 'react'
+import '../styles/ExtraPages.css';
 
-export default function Profile() {
+
+export default function About() {
   return (
-    <div>Profile</div>
+    <>
+        <img style={{marginTop: "5rem", width: "35%", height: "35%"}} src="../images/profile.svg"></img>
+    </>
   )
 }

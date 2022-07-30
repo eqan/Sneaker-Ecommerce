@@ -1,16 +1,20 @@
 import React from 'react'
+import {Box, Paper, Avatar,Grid, FormControl, InputLabel, NativeSelect, Typography, Button, TextField} from "@material-ui/core"
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import Background from "../images/signup.svg";
+import "../styles/Authentication.css"
 import validationSchema from '../utils/schema/signUpValidationSchema'
 import { Formik, Form} from 'formik';
 import {ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {Box, FormControl, InputLabel, NativeSelect, Typography, Button, TextField} from "@material-ui/core"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
-let navigate = useNavigate();
-    
-// [POST] https://api.escuelajs.co/api/v1/users/ -> API to add user
+const Login=()=>{
+  let navigate = useNavigate();
+  const paperStyle={padding :20,height:'70vh',width:380, margin:"20px auto"}
+  const avatarStyle={backgroundColor:'#1bbd7e'}
+  // [POST] https://api.escuelajs.co/api/v1/users/ -> API to add user
 function addUser(value)
 {
     const options = {
@@ -46,8 +50,8 @@ const displayToastError = (error) => {
 }
 
 
-  return (
-    <>
+    return(
+       <>
      <Formik
         initialValues={{
             name: "",
@@ -69,23 +73,36 @@ const displayToastError = (error) => {
      >
     {({ isSubmitting, errors, handleChange, handleBlur,values }) => (
          <Form>
+                  <div className="left">
+            <img src={Background} styles={{width: "100%", display: "flex", marginTop: "40px"}} alt="image"/>
+        </div>
+
+        <div className="split right">
+        <div className="centered">
+        <Grid>
+                <Paper elevation={10} style={paperStyle}>
+                    <Grid align='center'>
+                        <Avatar style={avatarStyle}><VpnKeyIcon/></Avatar>
+                        <h2>Sign In</h2>
+                    </Grid>
             <Box>
-            <Typography variant="h2" my={4} fontSize="bold">
-                Sign Up
-            </Typography>
                 <TextField label="Name" name="name" type="text"
+                style={{width: "200px"}}
                 onChange={handleChange('name')}
                 onBlur={handleBlur('name')}
                 value={values.name} />
                 {errors.name && displayToastError(errors.name)}
                 <br/>
                 <TextField label="Email" name="email" type="email"
+                style={{width: "200px"}}
                 onChange={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email} />
                 {errors.email && displayToastError(errors.email)}
                 <br/>
-                <FormControl>
+                <FormControl
+                    style={{width: "200px"}}
+                >
                     <InputLabel variant="standard" htmlFor="uncontrolled-native">
                         Select Role
                     </InputLabel>
@@ -104,6 +121,7 @@ const displayToastError = (error) => {
                 </FormControl>
                 <br/>
                 <TextField label="Password" name="password" type="password"
+                style={{width: "200px"}}
                 onChange={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
@@ -111,6 +129,7 @@ const displayToastError = (error) => {
                 {errors.password && displayToastError(errors.password)}
                 <br/>
                 <TextField
+                style={{width: "200px"}}
                 label="Confirm Password"
                 name="confirmPassword"
                 type="password"
@@ -126,11 +145,16 @@ const displayToastError = (error) => {
                 type="submit" disabled={isSubmitting}>
                 Submit
             </Button>
-            <ToastContainer />
             </Box>
-         </Form>
-       )}
-     </Formik>
-    </>
-  )
+            </Paper>
+            </Grid>
+        </div>
+        </div>
+              <ToastContainer />
+                  </Form>)}
+                </Formik>
+      </>
+    )
 }
+
+export default Login

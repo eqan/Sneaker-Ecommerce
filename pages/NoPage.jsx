@@ -1,7 +1,11 @@
 import React from 'react'
+import '../styles/ExtraPages.css'
+
 
 export default function NoPage() {
   return (
-    <h1>404 Not Found</h1>
+    <>
+        <img src="../images/404.svg"></img>
+    </>
   )
 }

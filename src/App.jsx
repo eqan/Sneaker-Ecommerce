@@ -40,7 +40,6 @@ function App() {
         {
           setProfileData({'avatar': null})
         }
-        // console.log(profileData)
     }
     getData();
   }, [setProfileData])
@@ -64,10 +63,10 @@ function App() {
           <Route element={<ProtectedRoute/>}>
             <Route path="/cart" element={<CartPage/>}/>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/item/:id" element={<ItemDetails />} />
           </Route>
             <Route path="/home" element={<Home/>}/>
             <Route path="/about" element={<About/>}/>
-            <Route path="/item/:id" element={<ItemDetails />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NoPage />} />
