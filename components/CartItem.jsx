@@ -48,7 +48,7 @@ const CartItem = ({ id, image, title, price, quantity, removeItemFromCart }) => 
           alignContent='center'
         >
           <Box>
-            <FormHelperText>Precio unitario</FormHelperText>
+            <FormHelperText>Item Price</FormHelperText>
             <Typography variant='inherit'>{'$' + price}</Typography>
           </Box>
         </Grid>
@@ -63,7 +63,7 @@ const CartItem = ({ id, image, title, price, quantity, removeItemFromCart }) => 
           justifyContent='center'
           alignContent='center'
         >
-          <FormHelperText>Cantidad </FormHelperText>
+          <FormHelperText>Item Quantity </FormHelperText>
           <Typography variant='inherit'>{quantity}</Typography>
         </Grid>
 
