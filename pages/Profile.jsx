@@ -3,13 +3,15 @@ import styles from '../styles/ExtraPages.module.css'
 
 
 const styles2 = {
-marginTop: "5 rem", width: "35%", height: "35%"
+marginTop: "10 rem", width: "50%", height: "75%"
 }
 
 export default function About() {
   return (
     <>
-        <img style={{...styles.img, ...styles2}} src="../src/images/profile.svg"></img>
+        <div className={styles.container}>
+          <img style={styles2} src="../src/images/profile.svg"></img>
+        </div>
     </>
   )
 }

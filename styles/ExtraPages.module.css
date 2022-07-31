@@ -1,12 +1,31 @@
-*{
-    -ms-overflow-style: none;
-  }
-  ::-webkit-scrollbar {
-    display: none;
-  }
+.container {
+  height: 65%;
+  width: 65%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: fixed;
+  align-items: center;
+  margin-top: 7rem;
+  margin-left: 10%;
+  
+  /* hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
-img {
-    margin-top: 8%;
-    width:50%;
-    height:50%;
+/* hide scrollbar for chrome, safari and opera */
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.container p {
+  color: #fff;
+  padding: 20px;
+}
+
+.img {
+    margin-top: 0rem;
+    width:60%;
+    height:80%;
+    margin-left: 10rem;
 }
