@@ -1,11 +1,11 @@
 import React from 'react'
-import '../styles/ExtraPages.css';
+import styles from '../styles/ExtraPages.module.css'
 
 
 export default function About() {
   return (
     <>
-        <img style={{marginTop: "2rem" }} src="../images/about.svg"></img>
+        <img style={{...styles.img, marginTop: "2rem" }} src="../src/images/about.svg"></img>
     </>
   )
 }

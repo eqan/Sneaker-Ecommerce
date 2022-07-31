@@ -5,24 +5,13 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
-import GoBackBtn from './GoBackBtn';
 import { CartContext } from '../utils/CartContext';
-import {useState, useContext, useEffect} from 'react';
+import {useContext} from 'react';
 
 
 const ItemDetail = ({ id, title, description, price, images }) => {
   const imgPath = images;
-  const [initialQuantity, setInitialQuantity] = useState(0)
   const {getItemFromCart, addToCart} = useContext(CartContext);
-
-  useEffect(() => {
-    const itemData = getItemFromCart(id);
-    if(itemData)
-    {
-      setInitialQuantity(parseInt(itemData['quantity']));
-    }
-  }, [])
-  
 
   return (
     <>
@@ -93,7 +82,7 @@ const ItemDetail = ({ id, title, description, price, images }) => {
               <Typography component='h5' variant='h6' textAlign='center'>
                 Price: ${price}
               </Typography>
-              <ItemCount id={id} title={title} image={images[0]} price={price} initial={initialQuantity} onAdd={addToCart}/>
+              <ItemCount id={id} title={title} image={images[0]} price={price} initial={getItemFromCart(id)} onAdd={addToCart}/>
             </Box>
           
         </Grid>

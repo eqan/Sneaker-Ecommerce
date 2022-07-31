@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Header.css";
+import styles from "../styles/Header.module.css";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate, Link } from "react-router-dom";
@@ -22,21 +22,21 @@ function Navbar({profileImage, setProfileData}) {
   };
   return (
     
-    <nav style={{justifyContent:"space-between", paddingLeft:"2", paddingRight:"2" }}>
+    <nav className={styles.nav} style={{justifyContent:"space-between", paddingLeft:"2", paddingRight:"2" }}>
       <div style={{marginLeft:'3rem' , marginRight:'3rem  '}}>
         <GoBackBtn/>
       </div>
       
-      <Box className="left">        
+      <Box className={styles.left}>        
 
       <p style={{fontFamily: "Logo", fontSize: "1rem"}}>Sneakers</p>
-        <ul style={{fontFamily: "PoppinsThin"}} className="list">
+        <ul style={{fontFamily: "PoppinsThin"}} className={styles.list}>
           <Link to='/home' style={{textDecoration: "none", color: "black"}}><li>Home</li></Link>
           <Link to='/Cart' style={{textDecoration: "none", color: "black"}}><li>Cart</li></Link>
           <Link to='/profile' style={{textDecoration: "none", color: "black"}}><li>Profile</li></Link>
           <Link to='/about' style={{textDecoration: "none", color: "black"}}><li>About</li></Link>
           {
-            !profileImage['avatar'] ?
+            !profileImage ?
               <div style={{display: "flex"}}>
                 <Link to='/signup' style={{textDecoration: "none", color: "black"}}><li>SignUp</li></Link>
                 <Link to='/login' style={{textDecoration: "none", color: "black"}}><li>Login</li></Link>
@@ -45,7 +45,7 @@ function Navbar({profileImage, setProfileData}) {
           }
         </ul>
       </Box>
-      <Box style={{display: "flex", justifyContent: "flex-end"}} className="avatar">
+      <Box style={{display: "flex", justifyContent: "flex-end"}} className={styles.avatar}>
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -66,7 +66,8 @@ function Navbar({profileImage, setProfileData}) {
             onClick={() => {
               profileImage = false;
               localStorage.removeItem('access_token');
-              setProfileData({'avatar': null});
+              localStorage.removeItem('cart');
+              setProfileData(null);
               navigate("/login");
             }}
           >
@@ -74,17 +75,17 @@ function Navbar({profileImage, setProfileData}) {
           </MenuItem>
         </Menu>
         {
-        profileImage['avatar'] ?
+        profileImage != null ?
         <img
           onClick={handleClick}
           src={profileImage['avatar']}
           width="40"
-          className="cart"
+          className={styles.cart}
         />
         : 
         <img
           width="40"
-          className="cart"
+          className={styles.cart}
         />
         }
       </Box>

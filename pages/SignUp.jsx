@@ -1,8 +1,8 @@
 import React from 'react'
 import {Box, Paper, Avatar,Grid, FormControl, InputLabel, NativeSelect, Typography, Button, TextField} from "@material-ui/core"
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import Background from "../images/signup.svg";
-import "../styles/Authentication.css"
+import Background from "../src/images/signup.svg";
+import styles from "../styles/Authentication.module.css"
 import validationSchema from '../utils/schema/signUpValidationSchema'
 import { Formik, Form} from 'formik';
 import {ToastContainer, toast } from "react-toastify";
@@ -73,12 +73,15 @@ const displayToastError = (error) => {
      >
     {({ isSubmitting, errors, handleChange, handleBlur,values }) => (
          <Form>
-                  <div className="left">
-            <img src={Background} styles={{width: "100%", display: "flex", marginTop: "40px"}} alt="image"/>
-        </div>
+            <div style={{marginTop: '5%', marginLeft: '5%', width: "100%"}}>
+                <div className={styles.left}>
+                    <img src={Background} className={{...styles.img}} alt="image"/>
+                </div>
 
-        <div className="split right">
-        <div className="centered">
+            </div>
+
+        <div className={styles.split + ' '+  styles.right}>
+        <div className={styles.centered}>
         <Grid>
                 <Paper elevation={10} style={paperStyle}>
                     <Grid align='center'>

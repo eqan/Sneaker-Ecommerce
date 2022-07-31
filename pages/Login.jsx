@@ -1,8 +1,8 @@
 import React from 'react'
-import { Box, Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
+import { Box, Grid,Paper, Avatar, TextField, Button } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Background from "../images/login.svg";
-import "../styles/Authentication.css"
+import Background from "../src/images/login.svg";
+import styles from "../styles/Authentication.module.css"
 import validationSchema from '../utils/schema/loginValidationSchema';
 import { Formik, Form} from 'formik';
 import {ToastContainer, toast } from "react-toastify";
@@ -23,6 +23,7 @@ const Login=()=>{
       .then(function (response) {
         if(response.data)
         {
+          console.log(response)
           localStorage.setItem('access_token', response.data.access_token);
           toast.success("Login Successfull")
           navigate('/home')
@@ -60,12 +61,13 @@ const Login=()=>{
        >
       {({ isSubmitting, errors, handleChange, handleBlur,values }) => (
         <Form>
-        <div className="left">
-            <img src={Background} styles={{width: "100%", display: "flex", marginTop: "40px"}} alt="image"/>
+        <div style={{marginTop: '2%', marginLeft: '5%', width: "100%"}}>
+        <div className={styles.left}>
+            <img src={Background} styles={styles.img} alt="image"/>
         </div>
-
-        <div className="split right">
-        <div className="centered">
+        </div>
+        <div className={styles.split + ' ' + styles.right}>
+        <div className={styles.centered}>
         <Grid>
                 <Paper elevation={10} style={paperStyle}>
                     <Grid align='center'>

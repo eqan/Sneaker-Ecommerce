@@ -32,7 +32,9 @@
   }
   
   /* Style the image inside the centered container, if needed */
-  img {
-  margin-top: 140px;
+  .img {
   margin-left: 30px;
+  width: 100%;
+  display: flex;
+  margin-top: 140px;
   }

@@ -33,12 +33,12 @@ function App() {
           setProfileData(await isAuthenticated(accessToken));
           if(!profileData)
           {
-            setProfileData({'avatar': null})
+            setProfileData(null)
           }
         }
         else
         {
-          setProfileData({'avatar': null})
+          setProfileData(null)
         }
     }
     getData();
@@ -60,7 +60,7 @@ function App() {
              :
             <Route index element={<Login />} />
           }
-          <Route element={<ProtectedRoute/>}>
+          <Route element={<ProtectedRoute profileData={profileData}/>}>
             <Route path="/cart" element={<CartPage/>}/>
             <Route path="/profile" element={<Profile />} />
             <Route path="/item/:id" element={<ItemDetails />} />

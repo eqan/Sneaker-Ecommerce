@@ -14,7 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ItemCount = ({id, image, title, price, initial, onAdd}) => {
 
-  const [ quantity, increment, decrement ] = useCounter(initial);
+  const [ quantity, increment, decrement ] = useCounter(parseInt(initial));
+  console.log(quantity)
 
   const handleAddBtnClick = () => {
      onAdd({id, title, image, price, quantity});
@@ -46,7 +47,7 @@ const ItemCount = ({id, image, title, price, initial, onAdd}) => {
             width="100px"
             inputProps={{
               'aria-label': 'weight',
-              value: quantity > 0 && quantity,
+              value: quantity >= 0 && quantity,
               type: 'number',
               max: 10,
               min: 1

@@ -55,10 +55,17 @@ export default function useLocalStorage() {
   const isInCart = (itemId) => items.some((cartItem) => cartItem.id === itemId);
 
   const getItemFromCart = (id) => {
-    return localStorage.getItem(
-      'cart',
-      JSON.stringify(items.filter((cartItem) => cartItem.id == id))
-    );
+    var result = items.filter(item => {
+      return item.id === id
+    })
+    if(result[0])
+    {
+      return parseInt(result[0]['quantity']);
+    }
+    else
+    {
+      return 0;
+    }
   }
 
   const amountOfItemsInCart = () => items.reduce((acc, item) => (acc += item.quantity), 0);
