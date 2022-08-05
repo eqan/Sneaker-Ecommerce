@@ -1,10 +1,11 @@
 import axios from 'axios';
+import {url} from '../UrlLink';
 
 export const isAuthenticated = async (accessToken) => {
   let res = false;
   try {
     res = await axios.get(
-      "https://fakse-store-api.herokuapp.com/api/v1/auth/profile",
+      `${url}/auth/profile`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

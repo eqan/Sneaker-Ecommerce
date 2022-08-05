@@ -1,0 +1,1 @@
+export const url = 'https://fakse-store-api.herokuapp.com/api/v1';

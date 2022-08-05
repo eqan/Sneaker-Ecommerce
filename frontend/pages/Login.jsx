@@ -9,6 +9,7 @@ import {ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import {url} from '../utils/UrlLink'
 
 const Login=()=>{
   let navigate = useNavigate();
@@ -16,7 +17,7 @@ const Login=()=>{
   const avatarStyle={backgroundColor:'#1bbd7e'}
     function authenticateUserNameAndPassword(values)
     {
-      axios.post('https://fakse-store-api.herokuapp.com/api/v1/auth/login', {
+      axios.post(`${url}/auth/login`, {
         email: values.email,
         password: values.password
       })

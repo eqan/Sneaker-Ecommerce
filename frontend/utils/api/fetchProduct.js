@@ -1,10 +1,11 @@
 import axios from 'axios';
+import {url} from '../UrlLink';
 
 export default async function fetchProducts(id) {
   let res = false;
   try {
     res = await axios.get(
-      `https://fakse-store-api.herokuapp.com/api/v1/products/${id}`
+      `${url}/products/${id}`
     );
   } catch (error) {
     console.log(error, "error");
