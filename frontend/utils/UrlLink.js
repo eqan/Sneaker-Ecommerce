@@ -1,1 +1,1 @@
-export const url = 'https://fakse-store-api.herokuapp.com/api/v1';
+export const url = 'http://localhost:3001';

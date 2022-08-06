@@ -5,7 +5,7 @@ export default async function fetchProducts(id) {
   let res = false;
   try {
     res = await axios.get(
-      `${url}/products/${id}`
+      `${url}/product?id=${id}`
     );
   } catch (error) {
     console.log(error, "error");

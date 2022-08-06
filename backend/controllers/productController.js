@@ -1,32 +1,11 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const UserModel = require('./models/Users')
-const ProductModel = require('./models/Product')
-const cors = require('cors')
-const app = express()
-const serverAddress = 3001
+const ProductModel = require('../models/Product')
 
-app.use(express.json())
-app.use(cors())
-
-var errorCode = 500;
 var successCode = 200;
+var errorCode = 500;
 
-mongoose.connect("mongodb+srv://eqan1:pass123@cluster0.zk2im.mongodb.net/ecommerce?retryWrites=true&w=majority")
-
-app.get("/users", (req, res) => {
-    UserModel.find({}, (err, result) => {
-      if (err) {
-        res.json(err);
-      } else {
-        res.json(result);
-      }
-    });
-  });
-
-app.get("/user", (req, res) => {
+app.get("/product", (req, res) => {
     const {id} = req.query;
-    UserModel.find({_id: id}, (err, result) => {
+    ProductModel.find({_id: id}, (err, result) => {
       if (err) {
         res.json(err);
       } else {
@@ -37,6 +16,7 @@ app.get("/user", (req, res) => {
 
 app.get(`/products`, (req, res) => {
   const {limit, offset} = req.query;
+  console.log(limit)
     ProductModel.find({limit: limit, skip: offset}, (err, result) => {
       if (err) {
         res.json(err);
@@ -45,20 +25,6 @@ app.get(`/products`, (req, res) => {
       }
     });
   });
-
-app.post('/user', async(req, res) => {
-    const user = req.body;
-    const newUser = new UserModel(user);
-    try
-    {
-      await newUser.save();
-      res.json(user);
-    }
-    catch(error)
-    {
-      res.send(errorCode, "User already added!")
-    }
-})
 
 app.post('/product', async(req, res) => {
     const product = req.body;
@@ -120,7 +86,3 @@ app.post('/products', async(req, res) => {
       }
     })
 })
-
-app.listen(serverAddress, () => {
-    console.log(`Server running on port ${serverAddress}`);
-  });
