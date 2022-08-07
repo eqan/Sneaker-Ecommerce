@@ -1,4 +1,3 @@
-var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcrypt');
 const UserModel = require('../models/User')
@@ -29,7 +28,7 @@ exports.sign_in = function(req, res) {
     if (!user || !user.comparePassword(req.body.password)) {
       return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
     }
-    return res.json({ token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, secretKey, {expiresIn: '1500s'}) });
+    return res.json({ token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, secretKey, {expiresIn: '48h'}) });
   });
 };
 
@@ -41,6 +40,7 @@ exports.loginRequired = function(req, res, next) {
     return res.status(401).json({ message: 'Unauthorized user!!' });
   }
 };
+
 exports.profile = function(req, res, next) {
   console.log("here is happening something")
   if (req.user) {
@@ -53,13 +53,99 @@ exports.profile = function(req, res, next) {
 
 };
 
-exports.getUsers = function(req, res, next) {
+exports.getUsers = function(req, res) {
   UserModel.find({}, (err, result) => {
     if (err) {
-      return res.status(401).json({ message: 'User Invalid' });
+      console.log(err);
+      return res.status(404).json({ message: 'User not found' });
     } else {
       return res.json(result);
     }
   });
 }
 
+exports.getUser = function(req, res) {
+  const {id} = req.query;
+    UserModel.find({_id: id}, (err, result) => {
+      if (err)
+      {
+        console.log(err);
+        return res.status(404).json({ message: 'User not found' });
+      }
+      else if(result.length == 0 || result == undefined || result == null)
+      {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      else
+      {
+        res.json(result);
+      }
+    });
+}
+
+exports.createUser = async function(req, res) {
+  const user = req.body;
+  const newUser = new UserModel(user);
+  try
+  {
+    await newUser.save();
+    res.json(user);
+  }
+  catch(error)
+  {
+    console.log(error);
+    return res.status(409).json({ message: 'User already added!' });
+  }
+}
+
+exports.updateUser = async function(req, res) {
+  const {id} = req.query;
+  const update = req.body;
+  try
+  {
+    delete update['role'];
+  }
+  catch(error)
+  {
+    console.log("")
+  }
+  try
+  {
+    const newProduct = await UserModel.findOneAndUpdate(id, update, {
+      new: true
+    });
+    console.log(newProduct)
+    res.json(newProduct)
+  }
+  catch(error)
+  {
+    return res.status(404).send({message: "User not found!"});
+  }
+}
+
+exports.deleteUser = async function(req, res) {
+  const {id} = req.query;
+  let dataRequest = null;
+  UserModel.find({_id: id}, (err, result) => {
+    if(result)
+    {
+      dataRequest = result;
+    }
+  })
+  if(dataRequest['role'] == 'admin')
+  {
+    try
+    {
+      await UserModel.deleteOne({ _id: id });
+      res.send(200, "User removed")
+    }
+    catch(error)
+    {
+      return res.status(404).send({message: "User not found!"});
+    }
+  }
+  else
+  {
+      return res.status(409).send({message: "User not found!"});
+  }
+}

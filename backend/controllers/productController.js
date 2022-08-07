@@ -1,59 +1,42 @@
 const ProductModel = require('../models/Product')
+require('dotenv').config();
 
-var successCode = 200;
-var errorCode = 500;
-
-app.get("/product", (req, res) => {
+exports.getProduct = function(req, res) {
     const {id} = req.query;
     ProductModel.find({_id: id}, (err, result) => {
-      if (err) {
-        res.json(err);
-      } else {
+        if (err) {
+        return res.status(404).send({message: "Product not found!"});
+        } else {
         res.json(result);
-      }
+        }
     });
-  });
+}
 
-app.get(`/products`, (req, res) => {
-  const {limit, offset} = req.query;
-  console.log(limit)
+exports.getProducts = function(req, res) {
+    const {limit, offset} = req.query;
     ProductModel.find({limit: limit, skip: offset}, (err, result) => {
-      if (err) {
+    if (err) {
         res.json(err);
-      } else {
+    } else {
         res.json(result);
-      }
+    }
     });
-  });
+}
 
-app.post('/product', async(req, res) => {
-    const product = req.body;
-    try
-    {
-      const newProduct= await ProductModel.create(product)
-      console.log(newProduct)
-      res.json(newProduct)
-    }
-    catch(error)
-    {
-      res.send(errorCode, "Product already added")
-    }
-})
-
-app.delete('/product', async(req, res) => {
+exports.deleteProduct = async function(req, res) {
     const {id} = req.query;
     try
     {
       await ProductModel.deleteOne({ _id: id });
-      res.send(successCode, "Product removed")
+      res.send(200, "Product removed")
     }
     catch(error)
     {
-      res.send(errorCode, "Product not removed")
+      return res.status(404).send({message: "Product not found!"});
     }
-})
+}
 
-app.put('/product', async(req, res) => {
+exports.updateProduct = async function(req, res) {
     const {id} = req.query;
     const update = req.body;
     try
@@ -66,11 +49,11 @@ app.put('/product', async(req, res) => {
     }
     catch(error)
     {
-      res.send(errorCode, "Product not updated")
+      return res.status(404).send({message: "Product not found!"});
     }
-})
+}
 
-app.post('/products', async(req, res) => {
+exports.createProducts = async function(req, res) {
     const products = req.body;
     products.map( async(product) => {
       console.log(product)
@@ -85,4 +68,18 @@ app.post('/products', async(req, res) => {
         res.send(errorCode, "Product already added")
       }
     })
-})
+}
+
+exports.createProduct = async function(req, res) {
+    const product = req.body;
+    try
+    {
+        const newProduct= await ProductModel.create(product)
+        console.log(newProduct)
+        res.json(newProduct)
+    }
+    catch(error)
+    {
+      return res.status(409).send({message: "Product already added!"});
+    }
+};

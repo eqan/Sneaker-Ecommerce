@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const jsonwebtoken = require("jsonwebtoken");
-const routes = require('./routes/userRouter');
+const routes = require('./routes/routes');
 require('dotenv').config();
 
 app.use(express.json())
