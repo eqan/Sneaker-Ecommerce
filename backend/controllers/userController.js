@@ -28,7 +28,7 @@ exports.sign_in = function(req, res) {
     if (!user || !user.comparePassword(req.body.password)) {
       return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
     }
-    return res.json({ token: jwt.sign({ email: user.email, name: user.name, _id: user._id }, secretKey, {expiresIn: '48h'}) });
+    return res.json({ token: jwt.sign({ email: user.email, name: user.name, _id: user._id, role: user.role }, secretKey, {expiresIn: '48h'}) });
   });
 };
 
@@ -41,16 +41,14 @@ exports.loginRequired = function(req, res, next) {
   }
 };
 
-exports.profile = function(req, res, next) {
-  console.log("here is happening something")
-  if (req.user) {
-    res.send(req.user);
+exports.adminRequired = function(req, res, next) {
+  const role = req.user['role'];
+  if (role == 'admin') {
     next();
-  } 
-  else {
-   return res.status(401).json({ message: 'Invalid token' });
-  }
+  } else {
 
+    return res.status(401).json({ message: 'User not admin!' });
+  }
 };
 
 exports.getUsers = function(req, res) {
@@ -83,32 +81,9 @@ exports.getUser = function(req, res) {
     });
 }
 
-exports.createUser = async function(req, res) {
-  const user = req.body;
-  const newUser = new UserModel(user);
-  try
-  {
-    await newUser.save();
-    res.json(user);
-  }
-  catch(error)
-  {
-    console.log(error);
-    return res.status(409).json({ message: 'User already added!' });
-  }
-}
-
 exports.updateUser = async function(req, res) {
   const {id} = req.query;
   const update = req.body;
-  try
-  {
-    delete update['role'];
-  }
-  catch(error)
-  {
-    console.log("")
-  }
   try
   {
     const newProduct = await UserModel.findOneAndUpdate(id, update, {
@@ -125,15 +100,6 @@ exports.updateUser = async function(req, res) {
 
 exports.deleteUser = async function(req, res) {
   const {id} = req.query;
-  let dataRequest = null;
-  UserModel.find({_id: id}, (err, result) => {
-    if(result)
-    {
-      dataRequest = result;
-    }
-  })
-  if(dataRequest['role'] == 'admin')
-  {
     try
     {
       await UserModel.deleteOne({ _id: id });
@@ -143,9 +109,4 @@ exports.deleteUser = async function(req, res) {
     {
       return res.status(404).send({message: "User not found!"});
     }
-  }
-  else
-  {
-      return res.status(409).send({message: "User not found!"});
-  }
 }
