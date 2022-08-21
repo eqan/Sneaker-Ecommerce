@@ -12,9 +12,10 @@ export const isAuthenticated = async (accessToken) => {
         },
       }
     );
+    console.log("Data", res)
+    return res.data;
   } catch (error) {
     console.log(error, "error");
     return null;
   }
-  return res.data;
 };

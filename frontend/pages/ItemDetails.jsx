@@ -6,17 +6,16 @@ import fetchProduct from '../utils/api/fetchProduct';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function ItemDetails() {
-  let details = false;
-  // const [productDetails, setProductDetails] = useState(false)
+  const [productDetails, setProductDetails] = useState(false)
   const [loading, setIsLoading] = useState(true)
   let { id } = useParams();
   useEffect(() => {
     async function _setProductDetails() {
-      details = await fetchProduct(id)
-      // details = details[0]
+      let details = await fetchProduct(id)
+      details = details[0]
+      setProductDetails(details);
       setIsLoading(false)
-      // setProductDetails(details);
-      console.log("This", ...details)
+      // console.log("This", ...details)
     }
     _setProductDetails();
   }, [])
@@ -24,7 +23,7 @@ export default function ItemDetails() {
   return (
     <>
       {loading && <LoadingSpinner />}
-      {!loading && <ItemDetail {...details} />}
+      {!loading && <ItemDetail {...productDetails} />}
     </>
   )
 }

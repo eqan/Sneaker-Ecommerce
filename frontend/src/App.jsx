@@ -28,14 +28,15 @@ function App() {
     async function getData() {
       const accessToken = localStorage.getItem("access_token");
       if (accessToken) {
-        setProfileData(await isAuthenticated(accessToken));
-        console.log("This is", profileData)
-        if (!profileData) {
-          setProfileData(null)
+        let data = await isAuthenticated(accessToken)
+        setProfileData(data);
+        console.log(profileData)
+        if (!data) {
+          setProfileData(false)
         }
       }
       else {
-        setProfileData(null)
+        setProfileData(false)
       }
     }
     getData();
@@ -49,7 +50,7 @@ function App() {
           decrementItem, removeItemFromCart, getItemFromCart,
           amountOfItemsInCart, totalCartPrice, resetCart
         }}>
-          <Header profileImage={profileData} setProfileData={setProfileData} />
+          {profileData && <Header profileImage={profileData} setProfileData={setProfileData} />}
           <Routes>
             {
               profileData ?

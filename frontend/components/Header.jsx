@@ -6,11 +6,16 @@ import { useNavigate, Link } from "react-router-dom";
 import { Box } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import GoBackBtn from "./GoBackBtn";
+import { useEffect } from "react";
 
 
 function Navbar({ profileImage, setProfileData }) {
 
   const [anchorEl, setAnchorEl] = useState(null);
+  useEffect(() => {
+    console.log(profileImage)
+  }, [])
+
 
   const open = Boolean(anchorEl);
   const navigate = useNavigate();

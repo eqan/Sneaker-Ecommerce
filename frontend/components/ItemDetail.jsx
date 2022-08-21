@@ -11,6 +11,10 @@ import { useContext } from 'react';
 
 const ItemDetail = ({ _id, title, description, price, images }) => {
   const { getItemFromCart, addToCart } = useContext(CartContext);
+  // useEffect(() => {
+  //   console.log(_id)
+  // }, [])
+
   return (
     <>
       <div flexDirection="row">
