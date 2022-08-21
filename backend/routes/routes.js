@@ -1,12 +1,14 @@
-module.exports = function(app) {
+module.exports = function (app) {
     var userHandlers = require('../controllers/userController');
     var productHandlers = require('../controllers/productController')
- 
+
     // Authentication Routes
     app.route('/auth/register')
         .post(userHandlers.register);
     app.route('/auth/login')
         .post(userHandlers.sign_in);
+    app.route("/auth/profile")
+        .get(userHandlers.loginRequired, userHandlers.getProfile)
     // User Routes
     app.route("/users")
         .get(userHandlers.loginRequired, userHandlers.adminRequired, userHandlers.getUsers)

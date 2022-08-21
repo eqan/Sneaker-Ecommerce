@@ -6,17 +6,15 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import { CartContext } from '../utils/CartContext';
-import {useContext} from 'react';
+import { useContext } from 'react';
 
 
-const ItemDetail = ({ id, title, description, price, images }) => {
-  const imgPath = images;
-  const {getItemFromCart, addToCart} = useContext(CartContext);
-
+const ItemDetail = ({ _id, title, description, price, images }) => {
+  const { getItemFromCart, addToCart } = useContext(CartContext);
   return (
     <>
-    <div flexDirection="row">
-    </div>
+      <div flexDirection="row">
+      </div>
       <Grid
         container
         mt={5}
@@ -38,7 +36,7 @@ const ItemDetail = ({ id, title, description, price, images }) => {
             <CardMedia sx={{
               maxWidth: '400px',
               width: "100%"
-            }} component='img' image={imgPath[0]} alt={id} />
+            }} component='img' image={images[0]} alt={0} />
             <Box sx={{
               display: 'flex',
               justifyContent: 'center',
@@ -49,11 +47,11 @@ const ItemDetail = ({ id, title, description, price, images }) => {
               <CardMedia sx={{
                 minWidth: '100px',
                 width: "300px"
-              }} component='img' image={imgPath[1]} alt={id} />
+              }} component='img' image={images[1]} alt={1} />
               <CardMedia sx={{
                 minWidth: '100px',
                 width: "300px"
-              }} component='img' image={imgPath[2]} alt={id} />
+              }} component='img' image={images[2]} alt={2} />
             </Box>
           </Card>
           <Box
@@ -68,23 +66,23 @@ const ItemDetail = ({ id, title, description, price, images }) => {
 
         <Grid item xs={12} sm={6} md={8}>
           <Box sx={{
-            borderRadius:'10px',
-            boxShadow:'0 0 4px rgb(0,0,0)',
-            padding:'2rem'
+            borderRadius: '10px',
+            boxShadow: '0 0 4px rgb(0,0,0)',
+            padding: '2rem'
 
           }}>
 
-          <Typography variant='h3' component='h3'>
-            {title}
-          </Typography>
-          
-              <ItemDescription characteristics={description} />
-              <Typography component='h5' variant='h6' textAlign='center'>
-                Price: ${price}
-              </Typography>
-              <ItemCount id={id} title={title} image={images[0]} price={price} initial={getItemFromCart(id)} onAdd={addToCart}/>
-            </Box>
-          
+            <Typography variant='h3' component='h3'>
+              {title}
+            </Typography>
+
+            <ItemDescription characteristics={description} />
+            <Typography component='h5' variant='h6' textAlign='center'>
+              Price: ${price}
+            </Typography>
+            <ItemCount id={_id} title={title} image={images[0]} price={price} initial={getItemFromCart(_id)} onAdd={addToCart} />
+          </Box>
+
         </Grid>
       </Grid>
     </>

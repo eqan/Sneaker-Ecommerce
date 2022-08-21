@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {url} from '../UrlLink';
+import { url } from '../UrlLink';
 
 export const isAuthenticated = async (accessToken) => {
   let res = false;

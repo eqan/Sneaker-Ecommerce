@@ -6,10 +6,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
-const Item = ({ id, title, price, images, category }) => {
+const Item = ({ _id, title, price, images, category }) => {
   const imgPath = images[0];
   const navigate = useNavigate();
-  const handleNavigation = () => navigate(`/item/${id}`);
+  const handleNavigation = () => navigate(`/item/${_id}`);
 
   return (
     <Card className='animate__animated animate__fadeIn' raised>
@@ -18,7 +18,7 @@ const Item = ({ id, title, price, images, category }) => {
           component='img'
           height='260'
           image={imgPath}
-          alt={id}
+          alt={_id}
           onClick={handleNavigation}
         />
         <CardContent>

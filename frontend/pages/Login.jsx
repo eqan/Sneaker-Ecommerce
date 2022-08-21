@@ -22,6 +22,7 @@ const Login=()=>{
         password: values.password
       })
       .then(function (response) {
+        console.log(response)
         if(response.data)
         {
           console.log(response)

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {url} from '../UrlLink';
+import { url } from '../UrlLink';
 
 export default async function fetchProducts(id) {
   let res = false;
@@ -7,6 +7,7 @@ export default async function fetchProducts(id) {
     res = await axios.get(
       `${url}/product?id=${id}`
     );
+    return res.data
   } catch (error) {
     console.log(error, "error");
     return false;

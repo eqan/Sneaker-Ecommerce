@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 import { Box, Paper, Avatar, Grid, Button, TextField } from "@material-ui/core"
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import Background from "../src/images/signup.svg";
@@ -9,27 +10,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import UploadImage from "../components/UploadImage";
-import {url} from '../utils/UrlLink'
+import { url } from '../utils/UrlLink'
 
-const Login = () => {
+const defaultProfile = null;
+
+const SignUp = () => {
     let navigate = useNavigate();
+    const [avatar, setAvatar] = useState(defaultProfile);
     const paperStyle = { padding: 20, height: '70vh', width: 380, margin: "20px auto" }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     // [POST] https://api.escuelajs.co/api/v1/users/ -> API to add user
     function addUser(value) {
+        console.log(url)
         const options = {
-            url: `${url}/users/`,
+            url: `${url}/auth/register`,
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
             },
             data: {
+                _id: 0,
                 name: value.name,
                 email: value.email,
                 password: value.password,
                 role: value.role,
-                avatar: value.avatar
+                avatar: avatar
             },
         };
         axios(options)
@@ -49,7 +55,6 @@ const Login = () => {
         });
     }
 
-
     return (
         <>
             <Formik
@@ -57,13 +62,14 @@ const Login = () => {
                     name: "",
                     email: "",
                     role: "customer",
-                    avatar: "",
+                    avatar: avatar,
                     password: "",
                     confirmPassword: ""
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                    console.log(values);
+                    console.log("These are: ", avatar);
+                    // console.log(values);
                     // errors.map((error => {toast.error(error)}))
                     setTimeout(() => {
                         addUser(values);
@@ -133,7 +139,7 @@ const Login = () => {
                                     </Paper>
                                 </div>
                             </div>
-                            <UploadImage />
+                            <UploadImage avatar={avatar} setAvatar={setAvatar} />
                         </Box>
                         <ToastContainer />
                     </Form>)}
@@ -142,4 +148,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default SignUp
