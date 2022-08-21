@@ -11,7 +11,7 @@ import ItemDetails from '../pages/ItemDetails';
 import CartPage from '../pages/CartPage';
 import { CartContext } from '../utils/CartContext';
 import { isAuthenticated } from '../utils/api/isAuthenticated';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import ProtectedRoute from '../utils/routes/ProtectedRoute';
 import useLocalStorage from '../utils/hooks/useLocalStorage';
 import './App.css'
@@ -50,7 +50,7 @@ function App() {
           decrementItem, removeItemFromCart, getItemFromCart,
           amountOfItemsInCart, totalCartPrice, resetCart
         }}>
-          {profileData && <Header profileImage={profileData} setProfileData={setProfileData} />}
+          <Header profileImage={profileData} setProfileData={setProfileData} />
           <Routes>
             {
               profileData ?

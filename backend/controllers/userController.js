@@ -57,7 +57,13 @@ exports.adminRequired = function (req, res, next) {
 };
 
 exports.getProfile = function (req, res) {
-  return req.user;
+  if (req.user) {
+    return res.json(req.user);
+  }
+  else {
+
+    return res.status(401).json({ message: 'Profile not found!' });
+  }
 }
 
 
@@ -83,10 +89,27 @@ exports.getUser = function (req, res) {
       return res.status(404).json({ message: 'User not found' });
     }
     else {
-      res.json(result);
+      return res.json(result[0]);
     }
   });
 }
+
+exports.getAvatar = function (req, res) {
+  const { id } = req.query;
+  UserModel.find({ _id: id }, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(404).json({ message: 'User not found' });
+    }
+    else if (result.length == 0 || result == undefined || result == null) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    else {
+      return res.json(result[0]['avatar']);
+    }
+  });
+}
+
 
 exports.updateUser = async function (req, res) {
   const { id } = req.query;

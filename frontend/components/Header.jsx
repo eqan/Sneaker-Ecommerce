@@ -13,6 +13,10 @@ function Navbar({ profileImage, setProfileData }) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   useEffect(() => {
+    async function setAvatar() {
+      
+    }
+    setAvatar();
     console.log(profileImage)
   }, [])
 

@@ -18,6 +18,8 @@ module.exports = function (app) {
         .put(userHandlers.loginRequired, userHandlers.adminRequired, userHandlers.updateUser)
     app.route("/user")
         .delete(userHandlers.loginRequired, userHandlers.adminRequired, userHandlers.deleteUser)
+    app.route("/user/avatar")
+        .get(userHandlers.loginRequired, userHandlers.getAvatar)
     // Product Routes
     app.route("/products")
         .get(productHandlers.getProducts)
