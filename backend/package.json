@@ -1,5 +1,5 @@
 {
-  "name": "mongodb-project",
+  "name": "Sneaker Backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,5 +18,8 @@
     "mongoose": "^6.5.0",
     "nodemon": "^2.0.19",
     "save": "^2.5.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
