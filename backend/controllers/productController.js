@@ -14,13 +14,13 @@ exports.getProduct = function (req, res) {
 
 exports.getProducts = function (req, res) {
   const { limit, offset } = req.query;
-  ProductModel.find({ limit: limit, skip: offset }, (err, result) => {
+  ProductModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
     } else {
       res.json(result);
     }
-  });
+  }).limit(limit).skip(offset);
 }
 
 exports.deleteProduct = async function (req, res) {
