@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { url } from '../UrlLink';
 
-export const isAuthenticated = async (accessToken) => {
+export const fetchAvatar = async (accessToken, id) => {
   let res = false;
   try {
     res = await axios.get(
-      `${url}/user/avatar`,
+      `${url}/user/avatar?id=${id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

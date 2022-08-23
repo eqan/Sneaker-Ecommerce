@@ -7,17 +7,23 @@ import { Box } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import GoBackBtn from "./GoBackBtn";
 import { useEffect } from "react";
+import { fetchAvatar } from "../utils/api/fetchAvatar";
 
 
-function Navbar({ profileImage, setProfileData }) {
+function Navbar({ accessToken, profileData, setProfileData }) {
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [profileImage, setProfileImage] = useState(false);
+
   useEffect(() => {
     async function setAvatar() {
-      
+      if (profileData) {
+        console.log(profileData['_id'])
+        setProfileImage(await fetchAvatar(accessToken, profileData['_id']));
+      }
     }
     setAvatar();
-    console.log(profileImage)
+    console.log(profileData)
   }, [])
 
 
@@ -73,7 +79,7 @@ function Navbar({ profileImage, setProfileData }) {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              profileImage = false;
+              setProfileImage(false);
               localStorage.removeItem('access_token');
               localStorage.removeItem('cart');
               setProfileData(null);
@@ -84,10 +90,10 @@ function Navbar({ profileImage, setProfileData }) {
           </MenuItem>
         </Menu>
         {
-          profileImage != null ?
+          profileImage ?
             <img
               onClick={handleClick}
-              src={profileImage['avatar']}
+              src={profileImage}
               width="40"
               className={styles.cart}
             />

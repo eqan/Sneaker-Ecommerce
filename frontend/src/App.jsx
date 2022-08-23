@@ -14,10 +14,14 @@ import { isAuthenticated } from '../utils/api/isAuthenticated';
 import { useState, useEffect } from 'react';
 import ProtectedRoute from '../utils/routes/ProtectedRoute';
 import useLocalStorage from '../utils/hooks/useLocalStorage';
+import LoadingSpinner from '../components/LoadingSpinner';
 import './App.css'
 
 function App() {
-  const [profileData, setProfileData] = useState({});
+  const [profileData, setProfileData] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
+  const [loading, setIsLoading] = useState(true)
+  let data = false;
   const {
     items, setItems, addToCart, incrementItem, decrementItem,
     getItemFromCart, removeItemFromCart,
@@ -26,11 +30,13 @@ function App() {
 
   useEffect(() => {
     async function getData() {
-      const accessToken = localStorage.getItem("access_token");
-      if (accessToken) {
-        let data = await isAuthenticated(accessToken)
+      data = localStorage.getItem("access_token");
+      setAccessToken(data);
+      console.log(data)
+      if (data) {
+        data = await isAuthenticated(data);
         setProfileData(data);
-        console.log(profileData)
+        console.log(data)
         if (!data) {
           setProfileData(false)
         }
@@ -38,6 +44,7 @@ function App() {
       else {
         setProfileData(false)
       }
+      setIsLoading(false)
     }
     getData();
   }, [setProfileData])
@@ -50,7 +57,10 @@ function App() {
           decrementItem, removeItemFromCart, getItemFromCart,
           amountOfItemsInCart, totalCartPrice, resetCart
         }}>
-          <Header profileImage={profileData} setProfileData={setProfileData} />
+          {loading && <LoadingSpinner />}
+          {!loading &&
+            <Header accessToken={accessToken} profileData={profileData} setProfileData={setProfileData} />
+          }
           <Routes>
             {
               profileData ?
@@ -69,6 +79,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
+
         </CartContext.Provider>
       </BrowserRouter>
     </div>

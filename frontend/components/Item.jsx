@@ -19,6 +19,7 @@ const Item = ({ _id, title, price, images, category }) => {
           height='260'
           image={imgPath}
           alt={_id}
+          key={_id}
           onClick={handleNavigation}
         />
         <CardContent>
