@@ -1,5 +1,5 @@
 # Sneaker Ecommerce Application
-### An ecommerce website that performs basic functionalities found in a normal ecomemrce website
+### An ecommerce website that performs basic functionalities found in a normal ecomemrce websites
 
 The purpose for this project was to explore the realm of MERN stack development and also to perform integeration, testing,
 and deployment to enhance software development experience.
@@ -38,5 +38,5 @@ Frontend: https://sneaker-ecommerce-eqan.vercel.app/
 > ## Commands for backend commit
 ```
 heroku git:remote -a sneaker-ecommerce-backend 
-git subtree push --prefix sub-folder heroku master
+git subtree push --prefix backend heroku master
 ```
